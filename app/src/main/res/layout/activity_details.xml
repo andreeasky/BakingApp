@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This container holds the RecipeFragment for the Ingredients and Steps -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/steps_ingredients_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#c6ff00"/>
+
+

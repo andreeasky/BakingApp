@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.user.bakingapp.StepDetailFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<ImageView
+    android:id="@+id/error_image_step"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_margin="10dp"
+    android:contentDescription="error_image_view"/>
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/video"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        app:resize_mode="fixed_width"/>
+
+    </FrameLayout>
+
+<TextView
+    android:id="@+id/detail_step"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingStart="10dp"
+    android:paddingTop="4dp"
+    android:textColor="#ff5722"
+    android:textSize="20sp"
+    android:background="#ffff8d"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#c6ff00">
+
+    <Button
+        android:id="@+id/previous_step"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:text="PREVIOUS STEP"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/next_step"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:text="NEXT STEP"
+        android:textSize="15sp" />
+
+</LinearLayout>
+
+</LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
+
