@@ -36,6 +36,22 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
+
+        <service android:name=".WidgetService"
+               android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+
+        <receiver android:name=".WidgetDataProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget_data_provider_info" />
+        </receiver>
+
+
+
+
     </application>
 
 </manifest>

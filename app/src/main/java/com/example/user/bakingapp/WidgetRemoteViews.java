@@ -8,6 +8,10 @@ import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +54,7 @@ import java.util.List;
         public RemoteViews getViewAt(int position) {
             RemoteViews view = new RemoteViews(mContext.getPackageName(),
                     R.layout.widget_ingredient);
-            view.setTextViewText(R.id.widget_ingredient, (CharSequence) ingredients.get(position) );
+            view.setTextViewText(R.id.widget_ingredient, ingredients.get( position ).getIngredient() );
             return view;
         }
 
@@ -75,11 +79,13 @@ import java.util.List;
         }
 
         private void initData() {
-            ingredients.clear();
-            for (int i = 1; i <= 10; i++) {
-                ingredients.add();
 
-            }
+            SharedPreferences sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences( mContext );
+            String jsonIngredients = sharedPreferences.getString( "Ingredients","" );
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<Ingredient>>(){}.getType();
+            ingredients = gson.fromJson( jsonIngredients, type);
         }
 
 

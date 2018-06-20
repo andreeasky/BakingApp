@@ -4,118 +4,129 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class WidgetConfigurationActivity extends AppCompatActivity {
+public class WidgetConfigurationActivity extends AppCompatActivity implements RecipeAdapter.OnItemClicked {
 
-    private Context context;
     private Recipe recipe;
     ArrayList<Recipe> recipes = new ArrayList<>();
-    ArrayList<Ingredient> ingredient = new ArrayList<>();
+    ArrayList<Ingredient> ingredients = new ArrayList<>();
     private int appWidgetId;
+    private RecipeAdapter recipeAdapter;
+    private RecyclerView recipesRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.widget_ingredients_list );
+        setContentView( R.layout.activity_main );
 
-        final Button widgetButtonNutellaPie = (Button) findViewById( R.id.button);
-        final Button widgetButtonBrownies = (Button) findViewById( R.id.button2);
-        final Button widgetButtonYellowCake = (Button) findViewById( R.id.button3);
-        final Button widgetButtonCheesecake = (Button) findViewById( R.id.button4);
+        recipesRecyclerView = (RecyclerView) findViewById( R.id.recycler_view );
 
-        Bundle bundle = new Bundle();
-        bundle.putParcelable( "recipe", recipe );
+        recipeAdapter = new RecipeAdapter( recipes, this, this );
 
-        if (bundle != null) {
-            appWidgetId = bundle.getInt(
+        recipesRecyclerView.setAdapter( recipeAdapter );
+
+        // set a GridLayoutManager with default vertical orientation and 1 column in Portrait mode and 2 columns in Landscape mode
+        GridLayoutManager gridLayoutManager = new GridLayoutManager( this, (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 1 : 2 );
+        recipesRecyclerView.setLayoutManager( gridLayoutManager ); // set LayoutManager to RecyclerView
+        recipeAdapter.setOnClick( this ); // Bind the listener
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            appWidgetId = extras.getInt(
                     AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    AppWidgetManager.INVALID_APPWIDGET_ID );
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
         }
 
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance( context );
+        new RecipesAsyncTask().execute();
+
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+        Recipe recipe = recipes.get( position );
+        ingredients = recipe.getRecipeIngredients();
+
+        // convert the ingredients to a json String
+        Gson gson = new Gson();
+        String jsonIngredients = gson.toJson(ingredients);
 
 
-        RemoteViews views = new RemoteViews( context.getPackageName(),
+        // Save the ingredients to preferences
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences( this.getApplicationContext() );
+        SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+        preferencesEditor.putString( "Ingredients", jsonIngredients);
+        preferencesEditor.commit();
+
+
+        // Update widget
+        Intent intent = new Intent(this, WidgetService.class);
+        // Add the app widget ID to the intent extras.
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        intent.setData( Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this );
+        RemoteViews views = new RemoteViews(getPackageName(),
                 R.layout.widget_ingredients_list );
+
+        views.setRemoteAdapter( R.id.widget_list, intent);
         appWidgetManager.updateAppWidget( appWidgetId, views );
 
+        // Finish Activity
         Intent resultValue = new Intent();
         resultValue.putExtra( AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId );
         setResult( RESULT_OK, resultValue );
         finish();
 
-        widgetButtonNutellaPie.setOnClickListener( new View.OnClickListener() {
+    }
 
-            public void onClick(View v) {
-                showWidgetIngredient();
+    private class RecipesAsyncTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
+
+        @Override
+        protected ArrayList<Recipe> doInBackground(String... urls) {
+            ArrayList<Recipe> recipeResult = Utils.fetchRecipeData();
+
+
+            return recipeResult;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Recipe> recipes) {
+
+            if (recipes != null && !recipes.isEmpty()) {
+                WidgetConfigurationActivity.this.recipes = recipes;
+                recipeAdapter.addAll( recipes );
 
             }
-        } );
+        }
 
-        widgetButtonBrownies.setOnClickListener( new View.OnClickListener() {
+        public void setOnClick(RecipeAdapter.OnItemClicked onClick) {
+        }
 
-            public void onClick(View v) {
-                showWidgetIngredient();
+        private RecipeAdapter.OnItemClicked onClick;
 
-            }
-        } );
+        public void setOnClick() {
+        }
 
-        widgetButtonYellowCake.setOnClickListener( new View.OnClickListener() {
-
-            public void onClick(View v) {
-                showWidgetIngredient();
-            }
-        } );
-
-        widgetButtonCheesecake.setOnClickListener( new View.OnClickListener() {
-
-            public void onClick(View v) {
-                showWidgetIngredient();
-
-            }
-        } );
-
-        Ingredient widgetIngredient = new Ingredient();
-        SharedPreferences sharedPreferences = PreferenceManager
-                .getDefaultSharedPreferences(this.getApplicationContext());
-        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-        String widgetRecipeIngredient = recipe.to(widgetIngredient);
-        prefsEditor.putString("Ingredient", );
-        prefsEditor.commit();
 
 
     }
-
-    public void showWidgetIngredient()
-    {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable( "recipe", recipe );
-        ingredient = recipe.getRecipeIngredients();
-        Intent intent = new Intent(WidgetConfigurationActivity.this, WidgetRemoteViews.class);
-        startActivity(intent);
-    }
-
-    public void setOnClick(RecipeAdapter.OnItemClicked onClick)
-    {
-    }
-
-    private OnItemClicked onClick;
-
-    public void setOnClick() {
-    }
-
-    public interface OnItemClicked {
-
-        void onItemClick(int position);
-    }
-
 }
