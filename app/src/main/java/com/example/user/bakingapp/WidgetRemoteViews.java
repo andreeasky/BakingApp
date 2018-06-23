@@ -87,7 +87,5 @@ import java.util.List;
             Type type = new TypeToken<ArrayList<Ingredient>>(){}.getType();
             ingredients = gson.fromJson( jsonIngredients, type);
         }
-
-
     }
 

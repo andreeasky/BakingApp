@@ -21,10 +21,6 @@ import java.util.List;
 public class DetailsActivity  extends AppCompatActivity {
 
     private Recipe recipe;
-    ArrayList<Step> steps = new ArrayList<>();
-    private RecyclerView stepsRecyclerView;
-    private StepAdapter stepAdapter;
-    Context context;
     int position;
 
     private boolean tabletSize;
@@ -82,7 +78,6 @@ public class DetailsActivity  extends AppCompatActivity {
 
                     }
         }
-        Utils.buildURL();
     }
 }
 

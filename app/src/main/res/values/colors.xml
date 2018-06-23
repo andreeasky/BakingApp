@@ -7,4 +7,9 @@
     <!-- Background color for app -->
     <color name="colorAccent">#6bff6b</color>
 
+    <color name="backgroundColor">#c6ff00</color>
+    <color name="backgroundColor_Ingredient_Step_DetailStep_RecipeName_WidgetIngredient">#ffff8d</color>
+    <color name="textColor_Step_and_Detail_Step">#ff5722</color>
+    <color name="textColor_Ingredient_and_WidgetIngredient">#007300</color>
+
 </resources>

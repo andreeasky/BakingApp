@@ -51,7 +51,7 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements Re
         if (extras != null) {
             appWidgetId = extras.getInt(
                     AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    AppWidgetManager.INVALID_APPWIDGET_ID);
+                    AppWidgetManager.INVALID_APPWIDGET_ID );
         }
 
         new RecipesAsyncTask().execute();
@@ -64,30 +64,29 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements Re
         Recipe recipe = recipes.get( position );
         ingredients = recipe.getRecipeIngredients();
 
-        // convert the ingredients to a json String
+        // Convert the ingredients to a json String
         Gson gson = new Gson();
-        String jsonIngredients = gson.toJson(ingredients);
-
+        String jsonIngredients = gson.toJson( ingredients );
 
         // Save the ingredients to preferences
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences( this.getApplicationContext() );
         SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
-        preferencesEditor.putString( "Ingredients", jsonIngredients);
+        preferencesEditor.putString( "Ingredients", jsonIngredients );
         preferencesEditor.commit();
 
+        // Update the widget
+        Intent intent = new Intent( this, WidgetService.class );
 
-        // Update widget
-        Intent intent = new Intent(this, WidgetService.class);
         // Add the app widget ID to the intent extras.
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        intent.setData( Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+        intent.putExtra( AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId );
+        intent.setData( Uri.parse( intent.toUri( Intent.URI_INTENT_SCHEME ) ) );
 
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this );
-        RemoteViews views = new RemoteViews(getPackageName(),
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance( this );
+        RemoteViews views = new RemoteViews( getPackageName(),
                 R.layout.widget_ingredients_list );
 
-        views.setRemoteAdapter( R.id.widget_list, intent);
+        views.setRemoteAdapter( R.id.widget_list, intent );
         appWidgetManager.updateAppWidget( appWidgetId, views );
 
         // Finish Activity
@@ -125,8 +124,5 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements Re
 
         public void setOnClick() {
         }
-
-
-
     }
 }

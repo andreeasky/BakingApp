@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="horizontal"
-    android:background="#c6ff00"
+    android:background="@color/backgroundColor"
     tools:context="com.example.user.bakingapp.DetailsActivity">
 
     <!--

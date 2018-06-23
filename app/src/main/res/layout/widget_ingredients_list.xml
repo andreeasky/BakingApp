@@ -8,34 +8,34 @@ android:layout_margin="@dimen/widget_margin">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#c6ff00"
+    android:background="@color/backgroundColor"
     android:orientation="vertical">
     <LinearLayout
         android:id="@+id/widget_layout_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffff8d"
+        android:background="@color/backgroundColor_Ingredient_Step_DetailStep_RecipeName_WidgetIngredient"
         android:orientation="horizontal"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
+        android:paddingLeft="@dimen/padding_small"
+        android:paddingRight="@dimen/padding_small">
         <ImageView
             android:id="@+id/widget_img_launcher"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/margin_extra_large"
+            android:layout_height="@dimen/margin_extra_large"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/ic_launcher"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Baking App Widget"
+            android:text="@string/Baking_App_Widget"
             android:layout_gravity="center_vertical"
             android:textColor="@color/colorPrimaryDark"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"/>
+            android:paddingStart="@dimen/padding_and_margin_medium"
+            android:paddingLeft="@dimen/padding_and_margin_medium"
+            android:paddingEnd="@dimen/padding_and_margin_medium"
+            android:paddingRight="@dimen/padding_and_margin_medium"/>
     </LinearLayout>
     <ListView
         android:id="@+id/widget_list"

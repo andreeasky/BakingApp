@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class StepDetailActivity extends AppCompatActivity {
 
-    TextView recipeStep;
     private Step step;
     int position;
 

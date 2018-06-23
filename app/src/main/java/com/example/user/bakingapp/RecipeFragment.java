@@ -25,16 +25,12 @@ import java.util.List;
 
 public class RecipeFragment extends Fragment implements StepAdapter.OnItemClicked {
 
-    public static final String INGREDIENT = "ingredient";
-    public static final String RECIPE_STEPS = "recipe_steps";
     private RecyclerView ingredientRecyclerView;
     private RecyclerView stepsRecyclerView;
     ArrayList<Ingredient> ingredient = new ArrayList<>();
     ArrayList<Step> steps = new ArrayList<>();
-    ArrayList<Recipe> recipes = new ArrayList<>();
     private Recipe recipe;
     private Step step;
-    private RecipeAdapter recipeAdapter;
     private IngredientAdapter ingredientAdapter;
     private StepAdapter stepAdapter;
     Context context;
@@ -105,9 +101,8 @@ public class RecipeFragment extends Fragment implements StepAdapter.OnItemClicke
         return rootView;
     }
 
-    // This is where you have to start the next Activity in phones
-    // Or load the selected step in a Fragment in tablets, in the right side
     // When the user selects a step, this method will be called
+    // This is where the selected step is loaded in a Fragment in tablets, in the right side
     @Override
     public void onItemClick(int position) {
 
@@ -121,7 +116,7 @@ public class RecipeFragment extends Fragment implements StepAdapter.OnItemClicke
             // Create a new RecipeFragment
             StepDetailFragment stepDetailFragment = new StepDetailFragment();
 
-            // set Fragment class Arguments
+            // Set Fragment class Arguments
             stepDetailFragment.setArguments( bundle );
 
             // Add the fragment to its container using a FragmentManager and a Transaction
@@ -134,6 +129,7 @@ public class RecipeFragment extends Fragment implements StepAdapter.OnItemClicke
         } else {
 
             // The onClick implementation of the RecyclerView item click
+            // This is where the next Activity in phones is started
             step = steps.get( position );
             Intent intent = new Intent( getActivity(), StepDetailActivity.class );
             intent.putParcelableArrayListExtra( "step", steps );
@@ -144,7 +140,7 @@ public class RecipeFragment extends Fragment implements StepAdapter.OnItemClicke
 
     }
 
-    // Fires when a configuration change occurs and fragment needs to save state
+    // This is called when a configuration change occurs and fragment needs to save state
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

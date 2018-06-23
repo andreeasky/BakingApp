@@ -11,17 +11,17 @@ import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 /**
- * Implementation of App WidgetDataProvider functionality.
+ * Implementation of the App WidgetDataProvider functionality.
  */
 public class WidgetDataProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        // There may be multiple widgets active, so update all of them
+            // There may be multiple widgets active, so update all of them
             for (int i = 0; i < appWidgetIds.length; ++i) {
 
-                // Set up the intent that starts the StackViewService, which will
+                // Set up the intent that starts the WidgetService, which will
                 // provide the views for this collection.
                 Intent intent = new Intent(context,WidgetService.class);
                 // Add the app widget ID to the intent extras.

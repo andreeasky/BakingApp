@@ -15,9 +15,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
     private RecipeAdapter recipeAdapter;
     ArrayList<Recipe> recipes = new ArrayList<>();
     private RecyclerView recipesRecyclerView;
-    private String recipeId = "id";
-    private Recipe recipe;
-    private String recipeName = "name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
 
         new RecipesAsyncTask().execute();
 
-        Utils.buildURL();
-
     }
 
     @Override
@@ -55,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
         @Override
         protected ArrayList<Recipe> doInBackground(String... urls) {
             ArrayList<Recipe> recipeResult = Utils.fetchRecipeData();
-
 
             return recipeResult;
         }

@@ -1,12 +1,9 @@
 package com.example.user.bakingapp;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,12 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -30,7 +24,6 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
@@ -104,7 +97,7 @@ public class StepDetailFragment extends Fragment {
 
             if (step != null) {
                 stepDescription.setText( step.getStepDescription() );
-
+                selectStep( stepIndex );
             }
 
             if (stepIndex <= 0) {
@@ -175,10 +168,9 @@ public class StepDetailFragment extends Fragment {
             } else {
                 stepExoPlayer.setVisibility( View.GONE );
                 errorImageStep.setVisibility( View.VISIBLE );
-                Picasso.with( getContext() ).load( R.drawable.error_image ).into( errorImageStep );
+                Picasso.with( getContext() ).load( R.drawable.no_video_available_image).into( errorImageStep );
             }
         }
-
     }
 
     private void initializeExoPlayer() {
@@ -251,7 +243,7 @@ public class StepDetailFragment extends Fragment {
         }
     }
 
-    // Fires when a configuration change occurs and fragment needs to save state
+    // This is called when a configuration change occurs and fragment needs to save state
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

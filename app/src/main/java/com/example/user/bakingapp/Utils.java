@@ -1,6 +1,8 @@
 package com.example.user.bakingapp;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;

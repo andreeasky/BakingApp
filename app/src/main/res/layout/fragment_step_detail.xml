@@ -18,15 +18,15 @@ android:orientation="vertical">
 <ImageView
     android:id="@+id/error_image_step"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_margin="10dp"
-    android:contentDescription="error_image_view"/>
+    android:layout_height="@dimen/image_view_height"
+    android:layout_margin="@dimen/padding_and_margin_medium"
+    android:contentDescription="@string/contentDescription"/>
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/video"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/padding_and_margin_medium"
         app:resize_mode="fixed_width"/>
 
     </FrameLayout>
@@ -36,37 +36,37 @@ android:orientation="vertical">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
-    android:paddingStart="10dp"
-    android:paddingTop="4dp"
-    android:textColor="#ff5722"
-    android:textSize="20sp"
-    android:background="#ffff8d"/>
+    android:paddingBottom="@dimen/padding_and_margin_medium"
+    android:paddingLeft="@dimen/padding_and_margin_medium"
+    android:paddingStart="@dimen/padding_and_margin_medium"
+    android:paddingTop="@dimen/padding_and_margin_very_small"
+    android:textColor="@color/textColor_Step_and_Detail_Step"
+    android:textSize="@dimen/textSize_medium"
+    android:background="@color/backgroundColor_Ingredient_Step_DetailStep_RecipeName_WidgetIngredient"/>
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="#c6ff00">
+    android:background="@color/backgroundColor">
 
     <Button
         android:id="@+id/previous_step"
         android:layout_width="0dp"
         android:layout_weight="0.5"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:text="PREVIOUS STEP"
-        android:textSize="15sp" />
+        android:layout_margin="@dimen/padding_large"
+        android:text="@string/Previous_Step_Button"
+        android:textSize="@dimen/textSize_small" />
 
     <Button
         android:id="@+id/next_step"
         android:layout_width="0dp"
         android:layout_weight="0.5"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:text="NEXT STEP"
-        android:textSize="15sp" />
+        android:layout_margin="@dimen/padding_large"
+        android:text="@string/Next_Step_Button"
+        android:textSize="@dimen/textSize_small" />
 
 </LinearLayout>
 

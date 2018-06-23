@@ -19,7 +19,7 @@
             android:id="@+id/recycler_view_ingredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#c6ff00">
+            android:background="@color/backgroundColor">
 
         </android.support.v7.widget.RecyclerView>
 
@@ -27,7 +27,7 @@
             android:id="@+id/recycler_view_steps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#c6ff00">
+            android:background="@color/backgroundColor">
 
         </android.support.v7.widget.RecyclerView>
 

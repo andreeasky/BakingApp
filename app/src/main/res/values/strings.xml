@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Baking App</string>
+    <string name="contentDescription">no_video_available_image_view</string>
+    <string name="Previous_Step_Button">PREVIOUS STEP</string>
+    <string name="Next_Step_Button">NEXT STEP</string>
+    <string name="Baking_App_Widget">Baking App Widget</string>
+    <string name="WidgetCategory">home_screen</string>
+
 </resources>
